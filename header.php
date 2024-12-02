@@ -127,11 +127,11 @@ $nomeUsuario = isset($_SESSION['nome']) ? $_SESSION['nome'] : null;
 
 
 .nav-links li button {
-    background: none; /* Remove fundo do botão */
-    border: none; /* Remove borda */
-    padding: 0; /* Remove padding extra */
+    background: none; 
+    border: none; 
+    padding: 0; 
     cursor: pointer;
-    display: flex; /* Centraliza o conteúdo */
+    display: flex;
     align-items: center;
     justify-content: center;
    
@@ -147,7 +147,7 @@ $nomeUsuario = isset($_SESSION['nome']) ? $_SESSION['nome'] : null;
 .sidebar {
     position: fixed;
     top: 0;
-    right: -250px; /* Começa fora da tela */
+    right: -250px; /
     width: 250px;
     height: 100%;
     background-color: #f4f4f4;
@@ -190,9 +190,26 @@ $nomeUsuario = isset($_SESSION['nome']) ? $_SESSION['nome'] : null;
 
 .nav-links a.active {
     color: #a62103; /* Cor destacada */
-    font-weight: bold; /* Deixa o texto mais grosso */
+    font-weight: bold; 
     text-decoration: none; /* Remove o sublinhado */
 }
+
+
+.badge {
+    position: absolute;
+    top: 8px; /* Ajuste conforme necessário */
+    right: 8px; /* Ajuste conforme necessário */
+    background-color: #ff0000;
+    color: #ffffff;
+    font-size: 0.8em;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
     </style>
 </head>
 <body>
@@ -208,7 +225,12 @@ $nomeUsuario = isset($_SESSION['nome']) ? $_SESSION['nome'] : null;
                 <li><a href="sobre.php">sobre nós</a></li>
                 <li><a href="reservar.php">reservar</a></li>
                 <li><a href="contato.php">contato</a></li>
-                <li><button class="toggle-btn" onclick="toggleSidebar()"><img src="img/carrinho.jpeg" alt="Carrinho"></button></li>
+                <li>
+    <button class="toggle-btn" onclick="toggleSidebar()">
+        <img src="img/carrinho.jpeg" alt="Carrinho">
+        <span class="badge" id="cart-count"><?= $quantidadeItens ?></span>
+    </button>
+</li>
                 <li id="login-or-name">
                     <?php if ($nomeUsuario): ?>
                         <span id="user-name"><?php echo htmlspecialchars($nomeUsuario); ?></span>

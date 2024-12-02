@@ -86,6 +86,7 @@ include("header.php");
     <meta charset="latin1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
+    <link rel="stylesheet" href="css/styles.css">
 
     <style>
       /* Reset */
@@ -357,6 +358,34 @@ body {
             <?php endforeach; ?>
         </div>
     </section>
+
+
+  
+<script>
+    // Garante que o script execute após a página carregar
+    document.addEventListener("DOMContentLoaded", () => {
+        const productCards = document.querySelectorAll(".product-card"); // Seleciona os cards
+
+        // Configura o Intersection Observer
+        const revealObserver = new IntersectionObserver(
+            (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible"); // Adiciona classe quando visível
+                        observer.unobserve(entry.target); // Remove o observador para evitar múltiplas animações
+                    }
+                });
+            },
+            { threshold: 0.1 } // Ativa quando 10% do elemento está visível
+        );
+
+        // Adiciona a classe `reveal` e inicia o observador
+        productCards.forEach(card => {
+            card.classList.add("reveal");
+            revealObserver.observe(card);
+        });
+    });
+</script>
 
 
 

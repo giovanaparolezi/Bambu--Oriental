@@ -2,6 +2,34 @@
 // Iniciar a sessão para armazenar o carrinho
 session_start();
 
+
+// Verifica se a sessão já foi iniciada
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+include_once("conexao.php");
+
+// Verifique se o usuário está logado e pegue o nome
+$nomeUsuario = isset($_SESSION['nome']) ? $_SESSION['nome'] : null;
+
+// Calcula o total de itens no carrinho
+function calcularQuantidadeItensCarrinho() {
+    if (!isset($_SESSION['carrinho'])) {
+        return 0; // Se o carrinho estiver vazio, retorna 0
+    }
+    $total = 0;
+    foreach ($_SESSION['carrinho'] as $item) {
+        $total += $item['quantidade'];
+    }
+    return $total;
+}
+
+// Obtém o total de itens no carrinho
+$quantidadeItens = calcularQuantidadeItensCarrinho();
+
+
+
+
 // Verificar se o carrinho já está iniciado
 if (!isset($_SESSION['finalizar_compra'])) {
     $_SESSION['finalizar_compra'] = [];
@@ -84,10 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        
     </div>
 
-    <form action="finalizar_pedido.php" method="POST">
-    <input type="hidden" name="carrinho" value="<?= base64_encode(serialize($_SESSION['pagamento'])) ?>">
-    <a href="pagamento.php">Finalizar Compra</a>
-</form>
+   
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
